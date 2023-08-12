@@ -6,6 +6,11 @@ class UserSerializer(serializers.ModelSerializer):
         model = User
         fields = '__all__'
 
+class AuthorSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ['id', 'username']
+
 class CategorySerializer(serializers.ModelSerializer):
     class Meta:
         model = Category
@@ -13,7 +18,9 @@ class CategorySerializer(serializers.ModelSerializer):
 
 class PostSerializer(serializers.ModelSerializer):
     category = CategorySerializer()
+    author = AuthorSerializer()
 
     class Meta:
         model = Post
-        fields = ['id', 'title', 'content', 'introduction', 'category', 'image', 'created_at', 'author']
+        fields = ['id', 'title', 'paragraph1', 'paragraph2', 'paragraph3', 
+                  'paragraph4', 'paragraph5', 'introduction', 'category', 'image', 'created_at', 'author']

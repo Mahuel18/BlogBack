@@ -23,7 +23,11 @@ class Post(models.Model):
     id = models.AutoField(primary_key=True)
     title = models.CharField(max_length=255)
     introduction = models.TextField()
-    content = models.TextField()
+    paragraph1 = models.TextField()
+    paragraph2 = models.TextField()
+    paragraph3 = models.TextField()
+    paragraph4 = models.TextField()
+    paragraph5 = models.TextField()
     image = models.ImageField(upload_to='media')
     created_at = models.DateTimeField(auto_now_add=True)
     author = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -31,3 +35,4 @@ class Post(models.Model):
 
     def __str__(self):
         return self.title
+    
