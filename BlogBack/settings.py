@@ -29,7 +29,9 @@ SECRET_KEY = 'l+alx4&-eq65lkq^^&$*^cek@+lhm8+4o1r)nc7-j1jy1iar7@'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    "*",
+]
 
 
 # Application definition
@@ -45,6 +47,7 @@ INSTALLED_APPS = [
     'blog',
     'comment',
     'rest_framework',
+    'rest_framework.authtoken',
 ]
 
 MIDDLEWARE = [
@@ -60,7 +63,9 @@ CORS_ALLOWED_ORIGINS = [
     "http://localhost:4200",
 ]
 
-CORS_ORIGIN_ALLOW_ALL = False
+CORS_ALLOW_ALL_ORIGINS = False
+
+CORS_ALLOW_HEADERS = ['*']
 
 CORS_ALLOW_METHODS = (
     "DELETE",
@@ -74,8 +79,18 @@ CORS_ALLOW_METHODS = (
 ROOT_URLCONF = 'BlogBack.urls'
 
 REST_FRAMEWORK ={
-    
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.BasicAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+        'rest_framework.authentication.TokenAuthentication'
+    ]
 }
+
+DEFAULT_PERMISSION_CLASSES: [
+    'rest_framework.permissions.IsAuthenticated',
+    'rest_framework.permissions.AllowAny',
+    ]
+
 MEDIA_URL = '/media/'
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
@@ -114,6 +129,11 @@ DATABASES = {
     }
 }
 
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend',
+]
+
+AUTH_USER_MODEL= 'blog.Users'
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
@@ -149,7 +169,7 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
-STATIC_URL = 'static/'
+STATIC_URL = '/static/'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field

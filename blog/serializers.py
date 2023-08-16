@@ -1,15 +1,37 @@
 from rest_framework import serializers
-from .models import User, Category, Post
+from .models import Category, Post, Users
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
-        model = User
+        model = Users
         fields = '__all__'
+
+class RegistrationSerializer(serializers.ModelSerializer):
+    
+    password = serializers.CharField(write_only=True)
+
+    class Meta:
+        model = Users
+        fields = [
+            "username",
+            "first_name",
+            "last_name",
+            "email",
+            "password",
+        ]
+    def create(self, validated_data):
+        password = self.validated_data.pop("password")
+        user = Users(**validated_data)
+        user.set_password(password)
+        user.save()
+        return user
+
+
 
 class AuthorSerializer(serializers.ModelSerializer):
     class Meta:
-        model = User
-        fields = ['id', 'username']
+        model = Users
+        fields = ['id', 'username', 'email', 'first_name', 'last_name']
 
 class CategorySerializer(serializers.ModelSerializer):
     class Meta:
