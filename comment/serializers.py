@@ -10,7 +10,7 @@ class AuthorSerializer(serializers.ModelSerializer):
         fields = ['id', 'username', 'first_name', 'last_name']
 
 class CommentSerializer(serializers.ModelSerializer):
-    author = serializers.PrimaryKeyRelatedField(read_only=True, default=serializers.CurrentUserDefault())
+    author = AuthorSerializer(read_only=True, default=serializers.CurrentUserDefault())
 
     class Meta:
         model = Comment

@@ -14,7 +14,9 @@ class CommentList(APIView):
         return Response(serializer.data)
 
     def post(self, request, pk):
+        print(request)
         post = get_object_or_404(Post, pk=pk)
+        print(post)
         serializer = CommentSerializer(data=request.data, context={'request': request})
         if serializer.is_valid():
             serializer.save(author=request.user, post=post)  # Asignar el post al comentario

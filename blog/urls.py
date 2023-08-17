@@ -11,6 +11,6 @@ urlpatterns = [
     path('logout/', views.User_logout, name='logout'),
     path('posts/<int:pk>/comments/', include('comment.urls')),
     path('check-auth/', views.check_authentication, name='check-auth'),
-    path('register-users', views.Register_Users, name='register_user'),
+    path('register/', views.Register_Users, name='register_user'),
 ]
 

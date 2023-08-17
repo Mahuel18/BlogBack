@@ -140,8 +140,8 @@ def Register_Users(request):
             account.is_active = True
             account.save()
             token = Token.objects.get_or_create(user=account)[0].key
-            data["mesasge"] = "user registered successfully"
-            data["email"] = account.Email_Address
+            data["message"] = "user registered successfully"
+            data["email"] = account.email
             data["username"]= account.username
             data["first_name"] = account.first_name
             data["last_name"] = account.last_name
